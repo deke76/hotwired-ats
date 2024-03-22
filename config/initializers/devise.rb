@@ -14,7 +14,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = 'b6dabb858d235db1fda0e8232a363bd2394fd477f1a7066a151aaeaef898709a0257919aaf0d1c254371df5a18ffcdae04d63941a35281cdb9021e22199cf173'
+  # config.secret_key = '68b1e4b3ec9c85c298ecaa85288dc289f4e0e3fa05b0629db9508f358a17de5d4278e79f97402c3e82fb7b7fd5fc571edb386cda6098f83e01ea027f523d07df'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -126,7 +126,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = 'ad2f76622a2c704fb09b562272d445bc436d29155ea243efd8f68f50f4e8ca57ba3d18045f0eddc41780f28e2aec11f1c461274ede7f48a72411bc81b35ce5d9'
+  # config.pepper = '60c8e2ede10f1b26a52baf410a9d4fc33b53e69da4102965e97711c755cd8b25c51c6c668253052bb74c0b99e2f1ee61d345ff7fe9f3dbd4fc7d3ce74648a2d5'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -296,14 +296,13 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
-  # ==> Hotwire/Turbo configuration
-  # When using Devise with Hotwire/Turbo, the http status for error responses
-  # and some redirects must match the following. The default in Devise for existing
-  # apps is `200 OK` and `302 Found` respectively, but new apps are generated with
-  # these new defaults that match Hotwire/Turbo behavior.
-  # Note: These might become the new default in future versions of Devise.
-  config.responder.error_status = :unprocessable_entity
-  config.responder.redirect_status = :see_other
+  # ==> Turbolinks configuration
+  # If your app is using Turbolinks, Turbolinks::Controller needs to be included to make redirection work:
+  # This is NOT required if you use Turbo. Devise supports Turbo out of the box.
+  #
+  # ActiveSupport.on_load(:devise_failure_app) do
+  #   include Turbolinks::Controller
+  # end
 
   # ==> Configuration for :registerable
 
