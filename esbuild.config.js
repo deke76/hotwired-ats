@@ -26,6 +26,7 @@ async function rebuild() {
   const chokidar = require('chokidar')
   const http = require('http')
   const clients = []
+  const webPort = process.env.WEB_PORT
 
   http.createServer((req, res) => {
     return clients.push(

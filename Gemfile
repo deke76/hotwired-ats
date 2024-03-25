@@ -55,6 +55,12 @@ gem "image_processing", "~> 1.2"
 # gem "devise", branch: 'rails_7', github: 'DavidColby/devise'
 gem 'devise', '~> 4.9', '>= 4.9.3'
 
+gem "stimulus_reflex", "= 3.5.0pre8"
+
+gem "inline_svg", "~> 1.9"
+
+gem 'rack-cors'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
@@ -77,5 +83,3 @@ group :test do
   gem "selenium-webdriver"
 
 end
-
-# gem "stimulus_reflex", "= 3.5.0pre8"
