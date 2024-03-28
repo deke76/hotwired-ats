@@ -2,10 +2,22 @@
 // Run that command whenever you add a new controller or create them with
 // ./bin/rails generate stimulus controllerName
 
+// import { application } from "./application"
+
+
+// import HelloController from "./hello_controller"
+// application.register("hello", HelloController)
+
+
 import { application } from "./application"
+import applicationController from "./application_controller"
+import StimulusReflex from "stimulus_reflex"
 
 import AlertController from "./alert_controller"
 application.register("alert", AlertController)
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
+StimulusReflex.initialize(application, { applicationController, isolate: true })
+
+// consider removing these options in production
+StimulusReflex.debug = true
+// end remove

@@ -74,8 +74,11 @@ GEM
     bootsnap (1.18.3)
       msgpack (~> 1.2)
     builder (3.2.4)
-    cable_ready (5.0.0.pre8)
-      rails (>= 5.2)
+    cable_ready (5.0.3)
+      actionpack (>= 5.2)
+      actionview (>= 5.2)
+      activesupport (>= 5.2)
+      railties (>= 5.2)
       thread-local (>= 1.1.0)
     capybara (3.40.0)
       addressable
@@ -159,8 +162,6 @@ GEM
       nio4r (~> 2.0)
     racc (1.7.3)
     rack (2.2.8.1)
-    rack-cors (2.0.2)
-      rack (>= 2.0.0)
     rack-test (2.1.0)
       rack (>= 1.3)
     rails (7.0.8.1)
@@ -219,12 +220,16 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (1.3.3)
       railties (>= 6.0.0)
-    stimulus_reflex (3.5.0.pre8)
-      cable_ready (= 5.0.0.pre8)
-      nokogiri
-      rack
-      rails (>= 5.2)
-      redis
+    stimulus_reflex (3.5.0.rc3)
+      actioncable (>= 5.2, < 8)
+      actionpack (>= 5.2, < 8)
+      actionview (>= 5.2, < 8)
+      activesupport (>= 5.2, < 8)
+      cable_ready (~> 5.0)
+      nokogiri (~> 1.0)
+      rack (>= 2, < 4)
+      railties (>= 5.2, < 8)
+      redis (>= 4.0, < 6.0)
     stringio (3.1.0)
     thor (1.3.0)
     thread-local (1.1.0)
@@ -256,6 +261,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  cable_ready (~> 5.0)
   capybara
   cssbundling-rails
   debug
@@ -266,13 +272,12 @@ DEPENDENCIES
   jsbundling-rails
   pg (~> 1.5)
   puma (~> 5.0)
-  rack-cors
   rails (~> 7.0.8, >= 7.0.8.1)
   redis (~> 4.0)
   selenium-webdriver
   sprockets-rails
   stimulus-rails
-  stimulus_reflex (= 3.5.0pre8)
+  stimulus_reflex (= 3.5.0rc3)
   turbo-rails
   tzinfo-data
   web-console

@@ -8,5 +8,5 @@ application.warnings = true
 application.debug = false
 window.Stimulus   = application
 
-StimulusReflex.initialize(Application, { isolate: true})
+StimulusReflex.initialize(Application, { isolate: true })
 export { application }

@@ -4,15 +4,16 @@ export default class extends Controller {
   static values = {
     closeAfter: {
       type: Number,
-      default: 2500
+      default: 25000
     },
     removeAfter: {
       type: Number,
-      default: 1100
+      default: 11000
     },
   }
 
   initialize() {
+    console.log('Initializing AlertController')
     this.hide()
   }
 
