@@ -76,3 +76,7 @@ group :test do
   gem "selenium-webdriver"
 
 end
+
+gem "stimulus_reflex", "= 3.5.0rc3"
+
+gem "redis-session-store", "~> 0.11.5"
