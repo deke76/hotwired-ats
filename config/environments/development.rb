@@ -8,7 +8,7 @@ config.session_store :redis_session_store,
   redis: {
     expire_after: 120.minutes,
     key_prefix: "session:",
-    url: ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" }
+    url: ENV.fetch("REDIS_URL") { "redis://redis:6379/1" }
   }
   config.action_controller.default_url_options = {host: "localhost", port: 3000}
   config.action_mailer.default_url_options = {host: "localhost", port: 3000}
@@ -54,6 +54,8 @@ config.session_store :redis_session_store,
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
+
+  config.action_mailer.default_url_options = { host: 'localhost', port:3000 }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

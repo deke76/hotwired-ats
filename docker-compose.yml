@@ -8,6 +8,7 @@ services:
       - /src/node_modules
     ports:
       - "3000:3000"
+      - "8082:8082"
     env_file:
       - rails.env
     depends_on:
