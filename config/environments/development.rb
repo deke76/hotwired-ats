@@ -85,4 +85,6 @@ config.session_store :redis_session_store,
   config.action_cable.disable_request_forgery_protection = true
 
   config.web_console.allowed_ips = "192.168.0.0/16"
+
+  config.action_view.preload_links_header = false
 end
