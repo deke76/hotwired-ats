@@ -14,7 +14,7 @@ class JobsController < ApplicationController
   # GET /jobs/new
   def new
     html = render_to_string(partial: 'form', locals: { job: Job.new })
-    render operations: cable_car
+    render cable_ready: cable_car
       .inner_html('#slideover-content', html: html)
       .text_content('#slideover-header', text: 'Post a new job')
   end
@@ -25,13 +25,20 @@ class JobsController < ApplicationController
 
   # POST /jobs or /jobs.json
   def create
+    puts "***** params *****"
+    puts job_params
+    puts "********************************"
     @job = Job.new(job_params)
     @job.account = current_user.account
-
     if @job.save
-      redirect_to @job, notice: "Job was successfully created"
+      html = render_to_string(partial: 'job', locals: { job: @job })
+      render cable_ready: cable_car
+        .prepend('#jobs', html: html)
+        .dispatch_event(name: 'submit:success')
     else
-      render :new, status: :unprocessable_entity
+      html = render_to_string(partial: 'form', locals: { job: @job })
+      render cable_ready: cable_car
+        .inner_html('#job-form', html: html), status: :unprocessable_entity
     end
   end
 
@@ -65,7 +72,8 @@ class JobsController < ApplicationController
     end
 
     # Only allow a list of trusted parameters through.
+
     def job_params
-      params.require(:job).permit(:title, :status, :job_type, :account_id)
+      params.require(:job).permit(:title, :status, :job_type, :location, :account_id, :description)
     end
 end

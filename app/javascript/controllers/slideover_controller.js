@@ -4,7 +4,6 @@ export default class extends Controller {
   static targets = [ "slideover" ]
 
   connect() {
-    console.log("Connecting Slideover")
     this.backgroundHtml = this.backgroundHTML()
     this.visible = false
   }
@@ -16,7 +15,6 @@ export default class extends Controller {
   }
 
   open() {
-    console.log("Opening Slideover")
     this.visible = true
     document.body.insertAdjacentHTML('beforeend', this.backgroundHtml)
     this.background = document.querySelector(`#slideover-background`)
