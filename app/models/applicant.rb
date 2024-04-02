@@ -1,5 +1,8 @@
 class Applicant < ApplicationRecord
+  validates_presence_of :first_name, :last_name, :email
+  has_one_attached :resume
   belongs_to :job
+
 
   enum stage: {
     application: 'application',
@@ -13,7 +16,6 @@ class Applicant < ApplicationRecord
     inactive: 'inactive',
   }
 
-  validates_presence_of :first_name, :last_name, :email
 
   def name
     [first_name, last_name].join(' ')
