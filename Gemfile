@@ -82,3 +82,5 @@ gem "stimulus_reflex", "= 3.5.0rc3"
 gem "redis-session-store", "~> 0.11.5"
 
 gem "inline_svg", "~> 1.9"
+
+gem "faker"
