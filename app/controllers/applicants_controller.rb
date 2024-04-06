@@ -1,17 +1,11 @@
 class ApplicantsController < ApplicationController
   before_action :set_applicant, only: %i[ show edit update destroy change_stage ]
   before_action :authenticate_user!
-
-  def change_stage
-    @applicant.update(applicant_params)
-    head :ok
-  end
   
   # GET /applicants or /applicants.json
   def index
     if search_params.present?
       @applicants = Applicant.includes(:job)
-      @applicants = @applicants.where(job_id: search_params[:job]) if search_params[:job].present?
       @applicants = @applicants.text_search(search_params[:query]) if search_params[:query].present?
       if search_params[:sort].present?
         sort = search_params[:sort].split('-')
@@ -74,6 +68,11 @@ class ApplicantsController < ApplicationController
       format.html { redirect_to applicants_url, notice: "Applicant was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def change_stage
+    @applicant.update(applicant_params)
+    head :ok
   end
 
   private
