@@ -1,5 +1,6 @@
 class ApplicantsController < ApplicationController
-include Filterable
+  include Filterable
+  
   before_action :set_applicant, only: %i[ show edit update destroy change_stage ]
   before_action :authenticate_user!
   
@@ -18,7 +19,9 @@ include Filterable
   # end
 
   def index
-    @applicants = filter!(Applicant).for_account(current_user.account_id)
+    @applicants = filter!(Applicant)
+      .for_account(current_user.account_id)
+
   end
 
   # GET /applicants/1 or /applicants/1.json
