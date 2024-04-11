@@ -3,6 +3,7 @@ class ApplicantsController < ApplicationController
   
   before_action :set_applicant, only: %i[ show edit update destroy change_stage ]
   before_action :authenticate_user!
+  before_action :turbo_frame_request_variant
   
   # GET /applicants or /applicants.json
   # def index
@@ -106,5 +107,9 @@ class ApplicantsController < ApplicationController
 
     def search_params
       params.permit(:query, :job, :sort)
+    end
+
+    def turbo_frame_request_variant
+      request.variant = :turbo_frame if turbo_frame_request?
     end
 end
