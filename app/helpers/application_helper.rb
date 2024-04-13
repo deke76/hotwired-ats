@@ -22,3 +22,7 @@ end
 def fetch_filter_key(resource, user_id, key)
   Kredis.hash("#{resource}_filters:#{user_id}")[key]
 end
+
+def get_account_name(account_id)
+  Account.find(account_id).name
+end

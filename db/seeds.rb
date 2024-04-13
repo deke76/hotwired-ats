@@ -7,8 +7,64 @@
 #   Character.create(name: "Luke", movie: movies.first)
 #random maximums
 
-max_random_jobs = 10
-max_random_people = 5
+max_random_jobs = 20
+max_random_people = 10
+
+def generate_resume_with_faker(applicant, job)
+  address = Faker::Address.full_address
+  name = applicant.name
+  email = applicant.email
+  phone = applicant.phone
+  job_title = job.title
+  company = Account.find(job.account_id).name
+  num_jobs = rand(1..5)
+  
+  resume = "#{name}\n"
+  resume += "Email: #{email}\n"
+  resume += "Phone: #{phone}\n"
+  resume += "#{address}\n"
+  resume += "Objective: To fill the #{job_title} role at #{company}\n\n"
+  
+  resume += "Experience\n"
+  end_year =  Date.today.strftime("%b %Y")
+  num_jobs.times do |job_number|
+    company = Faker::Company.name
+    years = rand(1..10)
+    resume += "#{company} - "
+    resume += "#{job_title}: "
+    start_year = end_year - rand(0..years)
+    resume += "#{start_year} - #{end_year}\n"
+    end_year = start_year
+    
+    # Generate a Faker job description
+    resume += "#{Faker::Job.position.capitalize + ': ' + '. ' + Faker::Job.title.capitalize + '.'}"
+    resume += "\t#{Faker::Lorem.paragraph(sentence_count: 3, random_sentences_to_add: 3)}\n"
+    
+    # Generate 2 or 3 random achievements
+    selected_achievements = []
+    rand(2..5).times { selected_achievements << Faker::Company.bs }
+    
+    selected_achievements.each_with_index do |achievement, index|
+      resume += "\t\t*\t#{achievement}\n"
+    end
+    
+    resume += "\n\n"
+  end
+  
+  resume += "Education\n"
+  resume += "#{Faker::Educator.university}\n"
+  start_year = end_year - 4;
+  resume += "#{Faker::Educator.degree}\n"
+  resume += "#{start_year} - #{end_year}\n"
+  resume += "\t#{Faker::Lorem.paragraph(sentence_count: 3, random_sentences_to_add: 3)}\n"
+  return resume
+end
+
+def string_to_pdf(content, filename)
+  Prawn::Document.generate(filename) do
+    text content
+  end
+end
 
 #create accounts
 puts "Creating accounts"
@@ -68,7 +124,7 @@ users.each do |user|
   end
 end
 
-#   #create descriptions and applicants for jobs
+#create descriptions and applicants for jobs
 puts "Creating descriptions & applicants for jobs"
 stage = ['application', 'interview', 'offer', 'hired']
 status = ['active', 'inactive']
@@ -87,7 +143,7 @@ jobs.each do |job|
   number_of_applicants.times do |applicant|
     first = Faker::Name.first_name
     last = Faker::Name.last_name
-    Applicant.create(
+    applicant = Applicant.create(
       first_name: first,
       last_name: last,
       email: Faker::Internet.email(name: "#{first}.#{last}"),
@@ -95,6 +151,16 @@ jobs.each do |job|
       stage: stage[Random.rand(stage.length)],
       status: status[Random.rand(status.length)],
       job_id: job.id
+    )
+
+    #create resume for applicant
+    resume = generate_resume_with_faker(applicant, job)
+    filename = "#{applicant.id}_resume.pdf"
+    file = Rails.root.join("db/resumes/#{filename}")
+    pdf_resume = string_to_pdf(resume, file)
+    applicant.resume.attach( 
+      io: File.open(file),
+      filename: filename
     )
   end
 end
