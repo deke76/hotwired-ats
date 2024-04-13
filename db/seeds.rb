@@ -26,7 +26,7 @@ def generate_resume_with_faker(applicant, job)
   resume += "Objective: To fill the #{job_title} role at #{company}\n\n"
   
   resume += "Experience\n"
-  end_year =  Date.today.strftime("%b %Y")
+  end_year = 2024
   num_jobs.times do |job_number|
     company = Faker::Company.name
     years = rand(1..10)
