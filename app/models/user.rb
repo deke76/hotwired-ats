@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :emails, dependent: :destroy
+  has_many :notifications, dependent: :destroy
   belongs_to :account
   accepts_nested_attributes_for :account
 
