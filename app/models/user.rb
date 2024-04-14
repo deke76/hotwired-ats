@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :emails, dependent: :destroy
   belongs_to :account
   accepts_nested_attributes_for :account
 end

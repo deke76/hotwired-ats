@@ -3,6 +3,7 @@ class Applicant < ApplicationRecord
 
   validates_presence_of :first_name, :last_name, :email
   has_one_attached :resume
+  has_many :emails, dependent: :destroy
   belongs_to :job
 
   enum stage: {
