@@ -22,7 +22,6 @@ module Filterable
 
   def apply_filters(resource)
     key = filter_key(resource)
-    puts "key: #{key}"
     resource.filter(Kredis.hash(key))
   end
 end
