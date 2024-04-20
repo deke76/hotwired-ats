@@ -11,8 +11,6 @@ class Email < ApplicationRecord
   after_create_commit :create_notification, if: :inbound?
 
   def create_notification
-    puts "Creating notification"
-    puts "applicant: #{applicant.inspect}"
     InboundEmailNotification.create(
       user: user,
       params: {
