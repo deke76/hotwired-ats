@@ -10,4 +10,16 @@ class Notification < ApplicationRecord
   def to_partial_path
     'notifications/notification'
   end
+
+  def update_users
+    broadcast_replace_later_to(
+      user,
+      :notifications,
+      target: 'notifications-container',
+      partial: 'nav/notifications',
+      locals: {
+        user: user
+      }
+    )
+  end
 end
