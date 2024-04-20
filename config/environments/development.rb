@@ -87,4 +87,6 @@ Rails.application.configure do
   config.web_console.allowed_ips = "192.168.0.0/16"
 
   config.action_view.preload_links_header = false
+
+  config.active_record.use_yaml_unsafe_load = true
 end
