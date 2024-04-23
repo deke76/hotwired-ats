@@ -22,6 +22,12 @@ Rails.application.routes.draw do
     sign_up: 'sign_up',
     sign_out: 'signout'
   }
+
+  namespace :careers do
+    resources :accounts, only: %i[show] do
+      resources :jobs, only: %i[index show], shallow: true
+    end
+  end
   get 'dashboard/show'
 
   authenticated :user do
