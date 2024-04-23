@@ -22,4 +22,8 @@ class Notification < ApplicationRecord
       }
     )
   end
+
+  def read!
+    update_column(:read_at, Time.current)
+  end
 end
