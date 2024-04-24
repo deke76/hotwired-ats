@@ -1,7 +1,7 @@
 <%= content_for :title, "#{@job.title} at #{@account.name}" %>
   <div class="max-w-prose mx-auto relative">
     <div class="py-4 text-right">
-      <%= link_to "Back to all jobs", :back, class: "text-lg text-blue-600 hover:text-blue-700" %>
+      <%= link_to "Back to all jobs", jobs_path, class: "text-lg text-blue-600 hover:text-blue-700" %>
     </div>
     <div class="py-4 px-2 sticky top-0 bg-gray-100">
       <div class="flex justify-between items-baseline">

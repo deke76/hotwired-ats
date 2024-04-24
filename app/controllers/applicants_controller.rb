@@ -5,20 +5,6 @@ class ApplicantsController < ApplicationController
   before_action :authenticate_user!
   before_action :turbo_frame_request_variant
   
-  # GET /applicants or /applicants.json
-  # def index
-  #   if search_params.present?
-  #     @applicants = Applicant.includes(:job)
-  #     @applicants = @applicants.text_search(search_params[:query]) if search_params[:query].present?
-  #     if search_params[:sort].present?
-  #       sort = search_params[:sort].split('-')
-  #       @applicants = @applicants.order("#{sort[0]} #{sort[1]}")
-  #     end
-  #   else
-  #     @applicants = Applicant.includes(:job).all
-  #   end
-  # end
-
   def index
     @grouped_applicants = filter!(Applicant)
       .for_account(current_user.account_id)
@@ -46,12 +32,11 @@ class ApplicantsController < ApplicationController
     @applicant = Applicant.new(applicant_params)
     if @applicant.save
       html = render_to_string(partial: 'card', locals: { applicant: @applicant })
-      render operations: cable_car
-        .prepend("#applicants-#{@applicant.stage}", html: html)
+      render cable_ready: cable_car
         .dispatch_event(name: 'submit:success')
     else
       html = render_to_string(partial: 'form', locals: { applicant: @applicant })
-      render operations: cable_car
+      render cable_ready: cable_car
         .inner_html('#applicant-form', html: html), status: :unprocessable_entity
     end
   end
