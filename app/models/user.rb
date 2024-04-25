@@ -16,5 +16,9 @@ class User < ApplicationRecord
     email_alias = "#{email.split('@')[0]}-#{id[0...4]}"
     update_column(:email_alias, email_alias)
   end
+
+  def name
+    [first_name, last_name].join(' ').presence || '(Not set)'
+  end
   
 end

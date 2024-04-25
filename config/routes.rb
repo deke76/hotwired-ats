@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get :resume, action: :show, controller: 'resumes'
   end
   
+  resources :users
   resources :jobs
   resources :notifications, only: %i[index]
 
