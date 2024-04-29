@@ -6,6 +6,9 @@ class User < ApplicationRecord
 
   belongs_to :account
   accepts_nested_attributes_for :account
+
+  belongs_to :invited_by, required: false, class_name: 'User'
+  has_many :invited_users, class_name: 'User', foreign_key: 'invited_by_id', dependent: :nullify, inverse_of: 'invited_by'
   
   has_many :emails, dependent: :destroy
   has_many :notifications, dependent: :destroy
