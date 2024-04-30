@@ -23,5 +23,9 @@ class User < ApplicationRecord
   def name
     [first_name, last_name].join(' ').presence || '(Not set)'
   end
+
+  def reset_invite!(inviting_user)
+    update(invited_at: Time.current, invited_by: inviting_user)
+  end
   
 end
