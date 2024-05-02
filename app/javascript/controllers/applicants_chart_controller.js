@@ -5,7 +5,7 @@ export default class extends ApplicationController {
   static targets = ["chart"]
 
   static values = {
-    categories: Array,
+    labels: Array,
     series: Array
   }
 
@@ -15,19 +15,18 @@ export default class extends ApplicationController {
   }
 
   update() {
-    console.log('applicants_chart_controller.js:18, event =>', event);
     this.stimulate('ApplicantsChart#update', event.target, { serializeForm: true })
   }
-  
+
   afterUpdate() {
     this.chart.updateOptions({
       series: [{
         data: this.seriesValue
       }],
       xaxis: {
-        categories: this.categoriesValue
+        categories: this.labelsValue
       }
-    });
+    })
   }
 
   get chartOptions() {
@@ -41,7 +40,7 @@ export default class extends ApplicationController {
         data: this.seriesValue
       }],
       xaxis: {
-        categories: this.categoriesValue,
+        categories: this.labelsValue,
         type: 'datetime'
       },
       stroke: {

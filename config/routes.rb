@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   resources :applicants do
     patch :change_stage, on: :member
     resources :emails, only: %i[index new create show]
@@ -10,7 +11,8 @@ Rails.application.routes.draw do
   resources :jobs
   resources :notifications, only: %i[index]
   resources :invites, only: %i[create update]
-
+  
+  get 'charts/show', as: :charts
   get 'invite', to: 'invites#new', as: 'accept_invite'
 
   devise_for :users,
@@ -34,6 +36,7 @@ Rails.application.routes.draw do
       end
     end
   end
+
   get 'dashboard/show'
 
   authenticated :user do
