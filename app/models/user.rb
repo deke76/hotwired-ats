@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include ActionText::Attachable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -28,6 +29,10 @@ class User < ApplicationRecord
 
   def reset_invite!(inviting_user)
     update(invited_at: Time.current, invited_by: inviting_user)
+  end
+
+  def to_attachable_partial_path
+    'users/mention_attachment'
   end
   
 end
