@@ -86,3 +86,5 @@ gem "inline_svg", "~> 1.9"
 gem "faker"
 gem "pg_search", "~> 2.3"
 gem "prawn"
+
+gem "sidekiq", "~> 7.2"

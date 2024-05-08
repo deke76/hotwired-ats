@@ -9,8 +9,17 @@ class Email < ApplicationRecord
   after_create_commit :send_email, if: :outbound?
   after_create_commit :broadcast_to_applicant
   after_create_commit :create_notification, if: :inbound?
+  after_create_commit :notify_recipient, if: :inbound?
 
-  def create_notification
+  def notify_recipient
+    NotifyUserJob.perform_later(
+      resource_id: id,
+      resource_type: 'Email',
+      user_id: user.id
+    )
+  end
+  
+  def create_notification(user)
     InboundEmailNotification.create(
       user: user,
       params: {
@@ -20,7 +29,6 @@ class Email < ApplicationRecord
     )
   end
   
-
   def broadcast_to_applicant
     broadcast_prepend_later_to(
       applicant,
